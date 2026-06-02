@@ -1,0 +1,66 @@
+name: MedScript CI
+## Aqui definimos o nome do workflow, que aparecerá na aba de Actions do GitHub. Nome do Serviço: MedScript CI
+on:
+  push:
+    branches:
+      - main
+      - develop
+  ## O workflow será acionado em push para as branches main e develop.
+  pull_request:
+    branches:
+      - main
+      - develop
+  
+jobs:
+
+## Aqui definimos os jobs que serão executados. Neste caso, temos um job chamado "build" que será responsável por construir e testar a aplicação.
+  build:
+
+    runs-on: ubuntu-latest
+## O job será executado em um ambiente Ubuntu mais recente disponível no GitHub Actions.
+    services:
+    ## Aqui definimos os serviços que serão utilizados durante a execução do job. Neste caso, estamos utilizando um serviço de banco de dados PostgreSQL.
+      postgres:
+        image: postgres:16
+
+        env:
+          POSTGRES_DB: medscript
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+
+        ports:
+          - 5432:5432
+## Aqui definimos as opções de saúde para o serviço de banco de dados PostgreSQL, garantindo que ele esteja pronto antes de executar os testes. --health-cmd="pg_isready -U postgres" 
+       #   --health-interval=10s ## Define o intervalo entre as verificações de saúde.
+       #   --health-timeout=5s ## Define o tempo limite para cada verificação de saúde.
+        #  --health-retries=5 ## Define o número de tentativas de verificação de saúde antes de considerar o serviço como não saudável.
+        options: >-
+          --health-cmd="pg_isready -U postgres" 
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+## Aqui definimos as variáveis de ambiente que serão utilizadas durante a execução do job. Essas variáveis são necessárias para configurar a conexão com o banco de dados e as configurações de JWT.
+    env:
+      DB_HOST: localhost
+      DB_PORT: 5432
+      DB_NAME: medscript
+      DB_USERNAME: postgres
+      DB_PASSWORD: postgres
+
+      JWT_SECRET: test-secret-key
+      JWT_EXPIRATION: 86400000
+## Aqui definimos os passos que serão executados durante o job. Neste caso, temos três passos: Checkout, Setup Java 17 e Build and Test.
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: maven
+
+      - name: Build and Test
+        run: mvn clean verify

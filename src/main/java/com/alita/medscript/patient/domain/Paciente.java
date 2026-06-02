@@ -71,6 +71,5 @@ public class Paciente {
     @Embedded
     private DadosPessoais dadosPessoais;
 
-    @Embedded
-    private DadosClinicos dadosClinicos;
+   
 }

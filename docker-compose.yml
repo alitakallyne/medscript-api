@@ -1,0 +1,30 @@
+version: '3.9'
+## Docker Compose file confiração para o banco de dados PostgreSQL
+services:
+## Serviço do PostgreSQL
+  postgres:
+    image: postgres:16
+
+    container_name: medscript-postgres
+## Reinicia o contêiner automaticamente, a menos que seja parado manualmente
+    restart: unless-stopped
+
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+
+    ports:
+      - "5432:5432"
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+## Configuração de healthcheck para verificar a saúde do banco de dados
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USERNAME} -d ${DB_NAME}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:

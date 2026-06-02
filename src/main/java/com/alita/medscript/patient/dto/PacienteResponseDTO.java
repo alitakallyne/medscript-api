@@ -18,7 +18,6 @@ public record PacienteResponseDTO(
         ContatoDTO contato,
         EnderecoDTO endereco,
         DocumentoDTO documento,
-        DadosPessoaisDTO dadosPessoais,
-        DadosClinicosDTO dadosClinicos) {
+        DadosPessoaisDTO dadosPessoais) {
 
 }

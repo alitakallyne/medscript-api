@@ -1,7 +1,6 @@
 package com.alita.medscript.patient.mapper;
 
 import com.alita.medscript.patient.domain.Contato;
-import com.alita.medscript.patient.domain.DadosClinicos;
 import com.alita.medscript.patient.domain.DadosPessoais;
 import com.alita.medscript.patient.domain.Documento;
 import com.alita.medscript.patient.domain.Endereco;
@@ -31,7 +30,6 @@ public static Paciente toEntity(PacienteRequestDTO dto) {
             .endereco(mapEndereco(dto.endereco()))
             .documento(mapDocumento(dto.documento()))
             .dadosPessoais(mapDadosPessoais(dto.dadosPessoais()))
-            .dadosClinicos(mapDadosClinicos(dto.dadosClinicos()))
             .build();
 }
 
@@ -88,15 +86,6 @@ private static DadosPessoais mapDadosPessoais(DadosPessoaisDTO dto) {
     return d;
 }
 
-private static DadosClinicos mapDadosClinicos(DadosClinicosDTO dto) {
-    if (dto == null) return null;
-
-    DadosClinicos d = new DadosClinicos();
-    d.setAltura(dto.altura());
-    d.setPeso(dto.peso());
-   
-    return d;
-}
 
     public static PacienteResponseDTO toDTO(Paciente entity) {
         return PacienteResponseDTO.builder()
@@ -111,7 +100,6 @@ private static DadosClinicos mapDadosClinicos(DadosClinicosDTO dto) {
                 .endereco(mapEnderecoDTO(entity.getEndereco()))
                 .documento(mapDocumentoDTO(entity.getDocumento()))
                 .dadosPessoais(mapDadosPessoaisDTO(entity.getDadosPessoais()))
-                .dadosClinicos(mapDadosClinicosDTO(entity.getDadosClinicos()))
                 .build();
     }
 
@@ -165,14 +153,7 @@ private static DadosClinicos mapDadosClinicos(DadosClinicosDTO dto) {
                 entity.getCep());
     }
 
-    private static DadosClinicosDTO mapDadosClinicosDTO(DadosClinicos entity) {
-        if (entity == null)
-            return null;
-        return new DadosClinicosDTO(
-                entity.getAltura(),
-                entity.getPeso());
-    }
-
+    
     public static PacienteResumoDTO toResumoDTO(Paciente entity) {
         return new PacienteResumoDTO(
                 entity.getId(),
@@ -192,8 +173,7 @@ private static DadosClinicos mapDadosClinicos(DadosClinicosDTO dto) {
                 mapContatoDTO(entity.getContato()),
                 mapEnderecoDTO(entity.getEndereco()),
                 mapDocumentoDTO(entity.getDocumento()),
-                mapDadosPessoaisDTO(entity.getDadosPessoais()),
-                mapDadosClinicosDTO(entity.getDadosClinicos()));
+                mapDadosPessoaisDTO(entity.getDadosPessoais()));
     }
 
 
@@ -225,8 +205,5 @@ private static DadosClinicos mapDadosClinicos(DadosClinicosDTO dto) {
                 mapDadosPessoais(dto.dadosPessoais())
         );
 
-        paciente.setDadosClinicos(
-                mapDadosClinicos(dto.dadosClinicos())
-        );
     }
 }
