@@ -6,7 +6,6 @@ import com.alita.medscript.patient.domain.Documento;
 import com.alita.medscript.patient.domain.Endereco;
 import com.alita.medscript.patient.domain.Paciente;
 import com.alita.medscript.patient.dto.ContatoDTO;
-import com.alita.medscript.patient.dto.DadosClinicosDTO;
 import com.alita.medscript.patient.dto.DadosPessoaisDTO;
 import com.alita.medscript.patient.dto.DocumentoDTO;
 import com.alita.medscript.patient.dto.EnderecoDTO;

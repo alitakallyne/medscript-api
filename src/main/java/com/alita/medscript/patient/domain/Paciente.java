@@ -26,6 +26,10 @@ import lombok.Setter;
 @Builder
 public class Paciente {
 
+    public Paciente() {
+        
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

@@ -16,11 +16,12 @@ public record PacienteRequestDTO(
         @NotBlank(message = "CPF é obrigatório") String cpf,
         @Email(message = "Email inválido") String email,
 
+        Boolean falecido,
+        LocalDate dataObito,
         ContatoDTO contato,
         EnderecoDTO endereco,
         DocumentoDTO documento,
-        DadosPessoaisDTO dadosPessoais,
-        DadosClinicosDTO dadosClinicos) {
+        DadosPessoaisDTO dadosPessoais) {
 
     
 }
