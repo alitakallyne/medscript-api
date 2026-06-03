@@ -64,3 +64,10 @@ jobs:
 
       - name: Build and Test
         run: mvn clean verify
+
+      - name: Uplaod JaCoCo Report
+        if: success() ## Este passo será executado apenas se o passo anterior (Build and Test) for bem-sucedido.
+        uses: actions/upload-artifact@v3
+        with:
+          name: jacoco-report
+          path: target/site/jacoco
