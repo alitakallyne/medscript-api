@@ -2,6 +2,7 @@ package com.alita.medscript.patient.controller;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,8 +32,9 @@ public class PacienteController {
     }
 
     @PostMapping
-    public PacienteResumoDTO criar(@RequestBody @Valid PacienteRequestDTO dto) {
-        return service.criar(dto);
+    public ResponseEntity<PacienteResumoDTO> criar(@RequestBody @Valid PacienteRequestDTO dto) {
+        PacienteResumoDTO criado = service.criar(dto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(criado);
     }
 
     @GetMapping

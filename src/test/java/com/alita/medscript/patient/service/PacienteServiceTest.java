@@ -1,4 +1,4 @@
-package com.alita.medscript.patient;
+package com.alita.medscript.patient.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
