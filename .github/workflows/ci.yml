@@ -67,7 +67,7 @@ jobs:
 
       - name: Uplaod JaCoCo Report
         if: success() ## Este passo será executado apenas se o passo anterior (Build and Test) for bem-sucedido.
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: jacoco-report
           path: target/site/jacoco
