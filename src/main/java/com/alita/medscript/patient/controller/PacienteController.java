@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.alita.medscript.patient.doc.PacienteControllerDoc;
 import com.alita.medscript.patient.dto.PacienteFiltroDTO;
 import com.alita.medscript.patient.dto.PacienteRequestDTO;
 import com.alita.medscript.patient.dto.PacienteResponseDTO;
@@ -24,7 +25,7 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/v1/pacientes")
-public class PacienteController {
+public class PacienteController implements PacienteControllerDoc{
 
     private final PacienteService service;
 
