@@ -1,0 +1,200 @@
+### Variáveis
+@host=http://localhost:8080
+@baseUrl={{host}}/api/v1/pacientes
+
+##################################################
+### Criar Paciente
+##################################################
+
+POST {{baseUrl}}
+Content-Type: application/json
+
+{
+  "nome": "João Silva",
+  "nomeSocial": "Joãozinho",
+  "dataNascimento": "1990-05-20",
+  "sexo": "MASCULINO",
+  "cpf": "52998224725",
+  "email": "joao@email.com",
+  "falecido": false,
+  "dataObito": null,
+  "contato": {
+    "ddd": "086",
+    "telefone": "11987654321",
+    "telefoneRecado": "",
+    "nomeRecado": ""
+  },
+  "endereco": {
+    "logradouro": "Rua A",
+    "bairro": "Centro",
+    "cidade": "Teresina",
+    "estado": "PI",
+    "cep": "64000-000"
+  },
+  "documento": {
+    "tipoDocumento": "RG",
+    "orgaoEmissor": "SSP",
+    "ufEmissor": "PI",
+    "dataEmissao": "2010-01-15",
+    "tipoIdentidade": "RG",
+    "numeroIdentidade": "12345678",
+    "numeroCartaoSus": "123456789012345"
+  },
+  "dadosPessoais": {
+    "nomePai": "José Silva",
+    "nomeMae": "Maria Silva",
+    "nomeConjuge": "Ana Silva",
+    "quantidadeFilhos": 2,
+    "religiao": "Católica",
+    "estadoCivil": "CASADO",
+    "escolaridade": "ENSINO_MEDIO",
+    "raca": "BRANCA",
+    "etnia": "CAUCASIANA",
+    "nacionalidade": "Brasileira"
+  }
+}
+
+##################################################
+### Buscar por ID
+##################################################
+
+GET {{baseUrl}}/1
+
+##################################################
+### Buscar Todos
+##################################################
+
+GET {{baseUrl}}
+
+##################################################
+### Buscar com Filtros
+##################################################
+
+GET {{baseUrl}}
+
+### Buscar por nome
+GET {{baseUrl}}?nome=joao
+
+### Buscar por CPF
+GET {{baseUrl}}?cpf=52998224725
+
+### Buscar ativos
+GET {{baseUrl}}?status=ATIVO
+
+### Buscar por nome e status
+GET {{baseUrl}}?nome=joao&status=ATIVO
+
+### Página 0
+GET {{baseUrl}}?page=0&size=10
+
+### Página 1
+GET {{baseUrl}}?page=1&size=10
+
+### Ordenar por nome
+GET {{baseUrl}}?sort=nome,asc
+
+### Ordenar por data cadastro
+GET {{baseUrl}}?sort=id,desc
+
+##################################################
+### Atualizar Paciente
+##################################################
+
+PUT {{baseUrl}}/1
+Content-Type: application/json
+
+{
+  "nome": "João Silva Atualizado",
+  "nomeSocial": "Joãozinho",
+  "dataNascimento": "1990-05-20",
+  "sexo": "MASCULINO",
+  "cpf": "52998224725",
+  "email": "joao.atualizado@email.com",
+  "falecido": false,
+  "dataObito": null,
+  "contato": {
+    "ddd": "086",
+    "telefone": "11999999999",
+    "telefoneRecado": "",
+    "nomeRecado": ""
+  },
+  "endereco": {
+    "logradouro": "Rua B",
+    "bairro": "Centro",
+    "cidade": "Teresina",
+    "estado": "PI",
+    "cep": "64000-000"
+  },
+  "documento": {
+    "tipoDocumento": "RG",
+    "orgaoEmissor": "SSP",
+    "ufEmissor": "PI",
+    "dataEmissao": "2010-01-15",
+    "tipoIdentidade": "RG",
+    "numeroIdentidade": "12345678",
+    "numeroCartaoSus": "123456789012345"
+  },
+  "dadosPessoais": {
+    "nomePai": "José Silva",
+    "nomeMae": "Maria Silva",
+    "nomeConjuge": "Ana Silva",
+    "quantidadeFilhos": 2,
+    "religiao": "Católica",
+    "estadoCivil": "CASADO",
+    "escolaridade": "ENSINO_MEDIO",
+    "raca": "BRANCA",
+    "etnia": "CAUCASIANA",
+    "nacionalidade": "Brasileira"
+  }
+}
+
+##################################################
+### Inativar Paciente
+##################################################
+
+DELETE {{baseUrl}}/1
+
+##################################################
+### CPF Inválido
+##################################################
+
+POST {{baseUrl}}
+Content-Type: application/json
+
+{
+  "nome": "João Silva",
+  "dataNascimento": "1990-05-20",
+  "cpf": "123",
+  "email": "joao@email.com",
+  "falecido": false
+}
+
+##################################################
+### Email Inválido
+##################################################
+
+POST {{baseUrl}}
+Content-Type: application/json
+
+{
+  "nome": "João Silva",
+  "dataNascimento": "1990-05-20",
+  "cpf": "52998224725",
+  "email": "email-invalido",
+  "falecido": false
+}
+
+##################################################
+### Paciente Falecido Sem Data Óbito
+##################################################
+
+POST {{baseUrl}}
+Content-Type: application/json
+
+{
+  "nome": "João Silva",
+  "dataNascimento": "1990-05-20",
+  "cpf": "52998224725",
+  "email": "joao@email.com",
+  "falecido": true
+}
