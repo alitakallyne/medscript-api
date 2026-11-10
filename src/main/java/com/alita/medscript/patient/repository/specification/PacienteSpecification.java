@@ -8,42 +8,44 @@ import com.alita.medscript.patient.dto.PacienteFiltroDTO;
 
 public class PacienteSpecification {
 
-    public static Specification<Paciente> comFiltro(PacienteFiltroDTO filtro) {
+    public static Specification<Paciente> comFiltro(PacienteFiltroDTO   filtro) {
         return Specification.where(nomeContem(filtro.nome()))
-                .and(cpfContem(filtro.cpf()))
-                .and(ativo(filtro.status()));
+                .and(cpfContem(filtro.cpf()));
     }
 
-    private static Specification<Paciente> ativo(StatusPaciente status) {
 
+    private static Specification<Paciente> cpfIgual(String cpf) {
         return (root, query, cb) -> {
+            if (cpf == null || cpf.isBlank()) {
+                return cb.conjunction();
+            }
+            return cb.equal(root.get("cpf"), cpf);
+        };
+    }
 
-        if (status == null) {
-            return null;
+    private static Specification<Paciente> nomeComecaCom(String nome) {
+    return (root, query, cb) -> {
+        if (nome == null || nome.isBlank()) {
+            return cb.conjunction();
         }
-
-        return cb.equal(root.get("status"), status);
+        return cb.like(cb.lower(root.get("nome")), nome.trim().toLowerCase() + "%");
     };
+}
+    private static Specification<Paciente> nomeContem(String nome) {
+        return (root, query, cb) -> {
+            if (nome == null || nome.isBlank()) {
+                return cb.conjunction();
+            }
+            return cb.like(cb.lower(root.get("nome")), "%" + nome.trim().toLowerCase() + "%");
+        };
     }
 
     private static Specification<Paciente> cpfContem(String cpf) {
-       return 
-                (root, query, criteriaBuilder) -> {
-                     if (cpf == null || cpf.isEmpty()) {
-                          return criteriaBuilder.conjunction();
-                     }
-                     return criteriaBuilder.like(root.get("cpf"), "%" + cpf + "%");
-                };
-    }
-
-
-
-    private static Specification<Paciente> nomeContem(String nome) {
-        return (root, query, criteriaBuilder) -> {
-            if (nome == null || nome.isEmpty()) {
-                return criteriaBuilder.conjunction();
+        return (root, query, cb) -> {
+            if (cpf == null || cpf.isBlank()) {
+                return cb.conjunction();
             }
-            return criteriaBuilder.like(root.get("nome"), "%" + nome + "%");
+            return cb.like(cb.lower(root.get("cpf")), "%" + cpf.trim().toLowerCase() + "%");
         };
     }
 }

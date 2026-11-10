@@ -2,10 +2,10 @@ package com.alita.medscript.patient.domain;
 
 import java.time.LocalDate;
 
-import com.alita.medscript.patient.domain.enums.StatusPaciente;
+import com.alita.medscript.patient.domain.enums.Sexo;
 
+import com.alita.medscript.patient.domain.enums.StatusPaciente;
 import jakarta.persistence.Column;
-import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -16,64 +16,63 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Table(name = "pacientes")
 @Getter
 @Setter
+@NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class Paciente {
-
-    public Paciente() {
-        
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false, length = 200)
-    private String nome;
+    private String nomeCompleto;
 
-    @Column(length = 200)
-    private String nomeSocial;
+    @Column(unique = true, length = 11)
+    private String cpf;
 
     @Column(nullable = false)
     private LocalDate dataNascimento;
 
+    @Column(length = 200)
+    private String nomeMae;
+
     @Enumerated(EnumType.STRING)
     private Sexo sexo;
 
-    @Column(unique = true, nullable = false)
-    private String cpf;
-
-    @Column(nullable = false)
-    @Builder.Default
-    private Boolean falecido;
-
-    @Column(nullable = true)
-    private LocalDate dataObito;
-
-    @Column(unique = true, length = 150)
-    private String email;
-
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(nullable = false, length = 20)
     private StatusPaciente status;
 
-    @Embedded
-    private Contato contato;
+    @Column(length = 20)
+    private String telefoneContato;
 
-    @Embedded
-    private Endereco endereco;
+    @Column(length = 150)
+    private String contatoEmergenciaNome;
 
-    @Embedded
-    private Documento documento;
+    @Column(length = 20)
+    private String contatoEmergenciaTelefone;
 
-    @Embedded
-    private DadosPessoais dadosPessoais;
+    @Column(length = 500)
+    private String alergias;
 
-   
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Paciente outro = (Paciente) o;
+        return id != null && id.equals(outro.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }

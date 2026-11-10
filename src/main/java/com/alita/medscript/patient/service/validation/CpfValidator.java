@@ -10,10 +10,11 @@ public class CpfValidator {
 
 
     public void validar(String cpf) {
-        if (cpf == null || cpf.isBlank()) {
-            throw new BusinessException("CPF é obrigatório.");
-        }
 
+        if(cpf == null || cpf.trim().isEmpty()) {
+            return ; // Se o CPF for nulo ou vazio, não faz validação
+        }
+    
         String cpfLimpo = cpf.replaceAll("\\D", ""); // Remove caracteres não numéricos
 
         if (cpfLimpo.length() != 11) {
