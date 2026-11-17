@@ -1,4 +1,4 @@
-package com.alita.medscript.patient.repository;
+package com.alita.medscript.Paciente.repository;
 
 import java.time.LocalDate;
 import java.util.Optional;
@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
-import com.alita.medscript.patient.domain.Paciente;
+import com.alita.medscript.Paciente.domain.Paciente;
 
 public interface PacienteRepository extends JpaRepository<Paciente, Long>,
         JpaSpecificationExecutor<Paciente> {
